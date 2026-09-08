@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Abdullah ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{min-height:100vh;overflow:hidden;background:linear-gradient(135deg,#ffb6d9,#ffd6e8,#fff0f6);display:flex;justify-content:center;align-items:center}
+.container{width:100%;max-width:500px;padding:20px}
+.screen{display:none;background:rgba(255,255,255,.93);padding:40px 25px;border-radius:30px;text-align:center;box-shadow:0 15px 40px rgba(200,50,120,.25);animation:show .6s ease}
+.screen.active{display:block}
+@keyframes show{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.emoji{font-size:70px;margin-bottom:15px;animation:bounce 1.5s infinite}
+@keyframes bounce{50%{transform:translateY(-10px)}}
+h1{color:#e83e8c;font-size:32px;margin-bottom:15px}
+h2{color:#d63384;margin-bottom:20px}
+p{color:#555;line-height:1.7;font-size:17px;margin-bottom:20px}
+.question{color:#d63384;font-size:22px;font-weight:bold;margin:25px 0}
+button{border:0;border-radius:30px;padding:14px 28px;margin:6px;font-size:16px;font-weight:bold;cursor:pointer;transition:.3s}
+.start,.next,.yes{background:#e83e8c;color:white;box-shadow:0 7px 15px rgba(232,62,140,.25)}
+.start:hover,.next:hover,.yes:hover{transform:scale(1.06)}
+.no{background:#eee;color:#777}
+.music-control{position:fixed;top:15px;right:15px;background:white;color:#d63384;border:2px solid #f3a5c5;padding:9px 15px;font-size:14px;z-index:10;display:none}
+.dots{margin-top:25px}.dot{display:inline-block;width:9px;height:9px;background:#f4b6d0;border-radius:50%;margin:3px}.dot.active{background:#e83e8c;transform:scale(1.3)}
+.heart{position:fixed;bottom:-30px;pointer-events:none;animation:floatUp linear forwards;z-index:1}
+@keyframes floatUp{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+.final{color:#555;font-size:18px;line-height:1.8}.name{color:#e83e8c;font-weight:bold}.signature{color:#d63384;font-size:20px;font-weight:bold;margin-top:25px}
+</style>
+</head>
+<body>
+<audio id="birthdayMusic" loop>
+  <source src="birthday.mp3" type="audio/mpeg">
+</audio>
+<button class="music-control" id="musicBtn" onclick="toggleMusic()">🎵 Music ON</button>
+
+<div class="container">
+<div class="screen active" id="screen1">
+<div class="emoji">🎂</div>
+<h1>Happy Birthday Abdullah! 🎉❤️</h1>
+<p>Today is a very special day because someone very special was born today. 🥹💕</p>
+<div class="question">Abdullah, kya tum ready ho ek choti si birthday surprise ke liye? 🎁</div>
+<button class="start" onclick="startSurprise()">🎵 Start Surprise</button>
+<div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+</div>
+
+<div class="screen" id="screen2">
+<div class="emoji">🥰</div>
+<h2>Abdullah, ek cute sa question...</h2>
+<div class="question">Kya tum mujhe pasand karte ho? ❤️</div>
+<button class="yes" onclick="nextScreen(3)">Haan ❤️</button>
+<button class="no" id="noBtn">Nahi 🙈</button>
+<p>Soch samajh kar answer karna... 😌💕</p>
+<div class="dots"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+</div>
+
+<div class="screen" id="screen3">
+<div class="emoji">💖</div>
+<h2>One more question...</h2>
+<div class="question">Hamari sab se cute memory kaunsi hai? 🥹💕</div>
+<button class="next" onclick="nextScreen(4)">Tum khud guess karo 😍</button>
+<div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+</div>
+
+<div class="screen" id="screen4">
+<div class="emoji">💝</div>
+<h2>Last Question Abdullah...</h2>
+<div class="question">Kya tum mere saath hamesha rahoge? ❤️</div>
+<button class="yes" onclick="showFinal()">Haan, hamesha ❤️</button>
+<button class="no" onclick="showFinal()">Dekhte hain 🙈</button>
+<div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span></div>
+</div>
+
+<div class="screen" id="final">
+<div class="emoji">🎁</div>
+<h1>Happy Birthday Abdullah! 🎂❤️</h1>
+<p class="final">
+Dear <span class="name">Abdullah</span> ❤️<br><br>
+I wish you a very <b>Happy Birthday! 🎉</b><br><br>
+May Allah bless you with endless happiness, success, good health and lots of beautiful moments. ✨<br><br>
+Tumhari har wish poori ho, tum hamesha smile karte raho, aur tumhari life ka har din aaj se bhi zyada beautiful ho. 🥹💕<br><br>
+Thank you for being such a special person. ❤️<br><br>
+<b>Happy Birthday once again, Abdullah! 🎂🎈</b>
+</p>
+<div class="signature">With lots of love ❤️</div>
+</div>
+</div>
+
+<script>
+let current=1;
+const music=document.getElementById("birthdayMusic");
+const musicBtn=document.getElementById("musicBtn");
+
+function startSurprise(){
+  music.play().catch(()=>{});
+  musicBtn.style.display="block";
+  nextScreen(2);
+}
+function nextScreen(number){
+  document.getElementById("screen"+current).classList.remove("active");
+  document.getElementById("screen"+number).classList.add("active");
+  current=number; hearts();
+}
+function showFinal(){
+  document.getElementById("screen4").classList.remove("active");
+  document.getElementById("final").classList.add("active");
+  for(let i=0;i<40;i++)setTimeout(createHeart,i*70);
+}
+function toggleMusic(){
+  if(music.paused){music.play();musicBtn.innerHTML="🎵 Music ON"}
+  else{music.pause();musicBtn.innerHTML="🔇 Music OFF"}
+}
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",moveButton);
+noBtn.addEventListener("touchstart",moveButton);
+function moveButton(){
+  noBtn.style.position="fixed";
+  noBtn.style.left=Math.random()*(window.innerWidth-120)+"px";
+  noBtn.style.top=Math.random()*(window.innerHeight-70)+"px";
+}
+function createHeart(){
+  let heart=document.createElement("div");heart.className="heart";
+  let list=["❤️","💕","💖","💗","💓","💝","✨","🎈"];
+  heart.innerHTML=list[Math.floor(Math.random()*list.length)];
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(15+Math.random()*25)+"px";
+  heart.style.animationDuration=(4+Math.random()*5)+"s";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),9000);
+}
+function hearts(){for(let i=0;i<12;i++)setTimeout(createHeart,i*100)}
+setInterval(createHeart,800);
+</script>
+</body>
+</html>
